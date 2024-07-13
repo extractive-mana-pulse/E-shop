@@ -1,12 +1,13 @@
-package com.example.e_shop.profile.presentation
+package com.example.e_shop.profile.presentation.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.e_shop.R
 import com.example.e_shop.databinding.FragmentProfileBinding
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,10 +21,11 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
 
-            signOutTv.setOnClickListener {
-                /**Implement logic to log out*/
-                Snackbar.make(profileRootLayout, "Developing...", Snackbar.LENGTH_SHORT).show()
-            }
+            signOutTv.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_loginFragment) }
+
+            profileHelpLayout.root.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_helpFragment) }
+
+            profileCredLayout.profileEditBtn.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment) }
         }
     }
 }

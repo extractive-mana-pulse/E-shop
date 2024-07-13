@@ -1,7 +1,6 @@
-package com.example.e_shop.auth.presentation.fragments
+package com.example.e_shop.auth.presentation.signup.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.e_shop.R
-import com.example.e_shop.auth.presentation.sealed.SignUp
-import com.example.e_shop.auth.presentation.vm.AuthViewModel
+import com.example.e_shop.auth.presentation.signup.sealed.SignUp
+import com.example.e_shop.auth.presentation.signup.vm.SignUpViewModel
 import com.example.e_shop.databinding.FragmentCreateAccountBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CreateAccountFragment : Fragment() {
+class SignUpFragment : Fragment() {
 
-    private val authViewModel : AuthViewModel by viewModels()
+    private val authViewModel : SignUpViewModel by viewModels()
     private val binding by lazy { FragmentCreateAccountBinding.inflate(layoutInflater) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = binding.root
@@ -35,7 +34,7 @@ class CreateAccountFragment : Fragment() {
 
             viewLifecycleOwner.lifecycleScope.launch {
 
-                createAccountPageContinueBtn.setOnClickListener { authViewModel.signUpProf(name, email, password, "https://i.sstatic.net/l60Hf.png") }
+                createAccountPageContinueBtn.setOnClickListener { authViewModel.signUp(name, email, password, "https://i.sstatic.net/l60Hf.png") }
 
                 authViewModel.signUpResult.collect {
                     when(it){

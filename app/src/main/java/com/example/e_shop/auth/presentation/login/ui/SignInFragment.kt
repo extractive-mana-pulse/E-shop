@@ -1,4 +1,4 @@
-package com.example.e_shop.auth.presentation.fragments
+package com.example.e_shop.auth.presentation.login.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.e_shop.R
 import com.example.e_shop.databinding.FragmentLoginBinding
+import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
-class LoginFragment : Fragment() {
+@AndroidEntryPoint
+class SignInFragment : Fragment() {
 
     private val binding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
 
@@ -19,9 +22,15 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
 
+            continueBtn.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_homeFragment) }
+
             createAccountTv.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_createAccountFragment) }
 
-            continueBtn.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_homeFragment) }
+            regWithAppleLayout.setOnClickListener { Snackbar.make(loginRootLayout, "Developing...", Snackbar.LENGTH_SHORT).show() }
+
+            regWithGoogleLayout.setOnClickListener { Snackbar.make(loginRootLayout, "Developing...", Snackbar.LENGTH_SHORT).show() }
+
+            regWithFacebookLayout.setOnClickListener { Snackbar.make(loginRootLayout, "Developing...", Snackbar.LENGTH_SHORT).show() }
         }
     }
 }

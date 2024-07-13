@@ -1,15 +1,14 @@
 package com.example.e_shop.main.presentation.favorite.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.e_shop.R
 import com.example.e_shop.databinding.FragmentFavoriteBinding
-import com.example.e_shop.main.domain.model.Product
-import com.example.e_shop.main.presentation.category.adapter.CategoryAdapter
 import com.example.e_shop.main.presentation.favorite.adapter.FavoriteAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,6 +23,10 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+
+            favoritePageBackBtn.setOnClickListener { findNavController().navigateUp() }
+
+            emptyFavoriteLayout.emptyWishlistBtn.setOnClickListener { findNavController().navigate(R.id.action_favoriteFragment_to_categoryFragment) }
 
             favoriteRcView.adapter = favoriteAdapter
             favoriteRcView.layoutManager = GridLayoutManager(requireContext(), 2)

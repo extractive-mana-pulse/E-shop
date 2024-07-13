@@ -1,4 +1,4 @@
-package com.example.e_shop.auth.presentation.sealed
+package com.example.e_shop.auth.presentation.signup.sealed
 
 import com.example.e_shop.auth.domain.model.SignUpUser
 

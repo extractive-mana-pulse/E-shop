@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:id="@+id/profile_root_layout"
-    tools:context=".profile.presentation.ProfileFragment">
+    tools:context=".profile.presentation.profile.ProfileFragment">
 
     <ImageView
         android:id="@+id/user_avatar"

@@ -1,10 +1,10 @@
-package com.example.e_shop.auth.presentation.vm
+package com.example.e_shop.auth.presentation.signup.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.e_shop.auth.data.remote.repository.AuthRepository
 import com.example.e_shop.auth.domain.model.SignUpUser
-import com.example.e_shop.auth.presentation.sealed.SignUp
+import com.example.e_shop.auth.presentation.signup.sealed.SignUp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,12 +16,12 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(private val repository : AuthRepository): ViewModel() {
+class SignUpViewModel @Inject constructor(private val repository : AuthRepository): ViewModel() {
 
     private val _signUp = MutableStateFlow<SignUp>(SignUp.Nothing)
     val signUpResult: StateFlow<SignUp> = _signUp.asStateFlow()
 
-    fun signUpProf(name: String, email: String, password: String,  avatar: String) {
+    fun signUp(name: String, email: String, password: String, avatar: String) {
 
         val request = SignUpUser(name, email, password, avatar)
 

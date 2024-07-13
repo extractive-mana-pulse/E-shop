@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.createAccountFragment,
                 R.id.categoryFragment,
                 R.id.categoryItemFragment,
+                R.id.favoriteFragment,
+                R.id.editProfileFragment,
 
                 )
 
