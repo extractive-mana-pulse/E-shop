@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="170dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/item_category_layout"
+    android:layout_marginVertical="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/category_item_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/category_item_image"
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:clipToOutline="true"
+        android:background="@drawable/rc_view_bg"
+        android:contentDescription="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="UnusedAttribute" />
+
+    <ImageButton
+        android:id="@+id/add_to_favorite"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/heart"
+        android:contentDescription="@null"
+        android:background="@drawable/back_btn_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/category_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:layout_gravity="start"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="?attr/textAppearanceBodySmall"
+        app:layout_constraintTop_toBottomOf="@id/category_item_image"/>
+
+    <TextView
+        android:id="@+id/category_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="?attr/textAppearanceBodySmall"
+        app:layout_constraintTop_toBottomOf="@id/category_item_name"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:orientation="vertical"-->
+<!--    android:layout_gravity="center"-->
+<!--    android:layout_marginEnd="8dp"-->
+<!--    tools:ignore="UseCompoundDrawables">-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/category_image"-->
+<!--        android:layout_width="170dp"-->
+<!--        android:layout_height="170dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:clipToOutline="true"-->
+<!--        tools:ignore="UnusedAttribute"-->
+<!--        android:contentDescription="@null"-->
+<!--        android:background="@drawable/rc_view_bg"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/category_title"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textAlignment="textStart"-->
+<!--        android:textAppearance="?attr/textAppearanceBodyLarge"/>-->
+
+<!--</LinearLayout>-->

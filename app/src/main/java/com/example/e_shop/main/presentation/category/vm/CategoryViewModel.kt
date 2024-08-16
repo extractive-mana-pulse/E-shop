@@ -33,5 +33,4 @@ class CategoryViewModel @Inject constructor(private val repository: CategoryRepo
             allProductsByCategory.value = response
         }
     }
-
 }

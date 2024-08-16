@@ -1,8 +1,11 @@
 package com.example.e_shop.main.di
 
 import com.example.e_shop.main.data.remote.api.CategoryApi
+import com.example.e_shop.main.data.remote.api.HomeApi
 import com.example.e_shop.main.data.remote.repository.CategoryRepository
+import com.example.e_shop.main.data.remote.repository.ProductRepository
 import com.example.e_shop.main.domain.repositoryImpl.CategoryRepositoryImpl
+import com.example.e_shop.main.domain.repositoryImpl.ProductRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,14 +20,26 @@ object HomeModule {
 
     @Provides
     @Singleton
-    fun provideHomeApi(retrofit: Retrofit) : CategoryApi {
+    fun provideCategoryApi(retrofit: Retrofit) : CategoryApi {
         return retrofit.create(CategoryApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideHomeRepository(categoryApi: CategoryApi): CategoryRepository{
+    fun provideHomeApi(retrofit: Retrofit) : HomeApi {
+        return retrofit.create(HomeApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCategoryRepository(categoryApi: CategoryApi): CategoryRepository{
         return CategoryRepositoryImpl(categoryApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideProductRepository(homeApi: HomeApi): ProductRepository{
+        return ProductRepositoryImpl(homeApi)
     }
 
     @Provides

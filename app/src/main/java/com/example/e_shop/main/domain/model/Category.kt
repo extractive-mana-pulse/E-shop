@@ -9,6 +9,7 @@ data class Category (
   @SerializedName("name"       ) var name       : String? = null,
   @SerializedName("image"      ) var image      : String? = null,
   @SerializedName("creationAt" ) var creationAt : String? = null,
-  @SerializedName("updatedAt"  ) var updatedAt  : String? = null
+  @SerializedName("updatedAt"  ) var updatedAt  : String? = null,
+  @SerializedName("product"    ) var product    : Product? = null
 
 )

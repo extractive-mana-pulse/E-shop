@@ -42,7 +42,6 @@ class CategoryFragment : Fragment() {
 
                         val categoryList: MutableList<Category> = categories.toMutableList()
                         categoryAdapter.differ.submitList(categoryList)
-
                     }
 
                 } else {

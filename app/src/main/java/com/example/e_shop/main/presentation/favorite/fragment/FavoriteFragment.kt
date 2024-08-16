@@ -22,6 +22,7 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.apply {
 
             favoritePageBackBtn.setOnClickListener { findNavController().navigateUp() }
@@ -30,22 +31,6 @@ class FavoriteFragment : Fragment() {
 
             favoriteRcView.adapter = favoriteAdapter
             favoriteRcView.layoutManager = GridLayoutManager(requireContext(), 2)
-
-//            favoriteRcView.getAllProductsByCategory(categoryId!!.toInt())
-
-//            categoryViewModel.allProductsByCategory.observe(viewLifecycleOwner) { response ->
-//                if (response.isSuccessful) {
-//                    response.body()?.let { categories ->
-//
-//                        val categoryList: MutableList<Product> = categories.toMutableList()
-//                        categoryItemAdapter.differ.submitList(categoryList)
-//                    }
-//
-//                } else {
-//                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-
         }
     }
 }

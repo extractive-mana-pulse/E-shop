@@ -3,8 +3,8 @@
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
 
-        <item name="windowSplashScreenBackground">?attr/colorPrimary</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenBackground">#8E6CEF</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_test</item>
         <item name="windowSplashScreenAnimationDuration">2500</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.Eshop</item>
 
