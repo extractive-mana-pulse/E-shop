@@ -9,18 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.e_shop.R
 import com.example.e_shop.databinding.FragmentCategoryItemBinding
 import com.example.e_shop.main.domain.model.Product
 import com.example.e_shop.main.presentation.category.adapter.CategoryItemAdapter
 import com.example.e_shop.main.presentation.category.vm.CategoryViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoryItemFragment : Fragment() {
 
-    private val categoryItemAdapter by lazy { CategoryItemAdapter() }
-    private val categoryViewModel : CategoryViewModel by viewModels()
+    private val categoryViewModel by viewModels<CategoryViewModel>()
     private val binding by lazy { FragmentCategoryItemBinding.inflate(layoutInflater) }
+    private val categoryItemAdapter by lazy { CategoryItemAdapter(clickEvent = ::categoryItemClickEvents) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = binding.root
 
@@ -53,5 +55,21 @@ class CategoryItemFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun categoryItemClickEvents(categoryItemClickHandler: CategoryItemAdapter.CategoryItemClickHandler, product: Product) {
+        when(categoryItemClickHandler) {
+            CategoryItemAdapter.CategoryItemClickHandler.ITEM -> {
+                val bundle = Bundle().apply {
+                    putParcelable("product", product)
+                }
+                findNavController().navigate(R.id.detailFragment, bundle)
+            }
+
+            CategoryItemAdapter.CategoryItemClickHandler.ADD_TO_FAVORITE -> {
+                Snackbar.make(binding.root, "Developing...", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
     }
 }

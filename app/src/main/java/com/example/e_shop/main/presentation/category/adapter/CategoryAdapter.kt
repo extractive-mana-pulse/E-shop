@@ -1,10 +1,8 @@
 package com.example.e_shop.main.presentation.category.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +11,9 @@ import com.example.e_shop.R
 import com.example.e_shop.databinding.CategoryRcViewBinding
 import com.example.e_shop.main.domain.model.Category
 
-class CategoryAdapter  : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(private val clickEvent: (ClickHandler, Category) -> Unit)  : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+
+    enum class ClickHandler { ITEM }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = CategoryRcViewBinding.bind(itemView)
@@ -57,18 +57,8 @@ class CategoryAdapter  : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
                     .into(categoryImage)
             }
         }
-
-        holder.itemView.setOnClickListener {
-
-            val bundle = Bundle().apply {
-                putString("name", item.name)
-                putString("image", item.image)
-                putString("id", item.id.toString())
-            }
-
-            val navController = Navigation.findNavController(holder.itemView)
-            navController.navigate(R.id.categoryItemFragment, bundle)
-        }
+        holder.itemView.setOnClickListener { clickEvent(ClickHandler.ITEM, item) }
     }
+
     override fun getItemCount(): Int = differ.currentList.size
 }

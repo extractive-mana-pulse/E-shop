@@ -1,8 +1,10 @@
 package com.example.e_shop.main.domain.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 data class Product (
 
   @SerializedName("id"          ) var id          : Int?              = null,
@@ -14,4 +16,4 @@ data class Product (
   @SerializedName("updatedAt"   ) var updatedAt   : String?           = null,
   @SerializedName("category"    ) var category    : Category?         = Category()
 
-)
+): Parcelable

@@ -6,4 +6,6 @@ import retrofit2.Response
 interface ProductRepository {
 
     suspend fun getAllProducts(): Response<List<Product>>
+
+    suspend fun getProductsWithPagination(): Response<List<Product>>
 }

@@ -1,5 +1,6 @@
 package com.example.e_shop.main.presentation.category.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,12 +8,18 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.e_shop.R
 import com.example.e_shop.databinding.CategoryItemRcViewBinding
 import com.example.e_shop.main.domain.model.Product
 import com.google.android.material.snackbar.Snackbar
 
-class CategoryItemAdapter  : RecyclerView.Adapter<CategoryItemAdapter.ViewHolder>() {
+class CategoryItemAdapter(private val clickEvent: (CategoryItemClickHandler, Product) -> Unit)  : RecyclerView.Adapter<CategoryItemAdapter.ViewHolder>() {
+
+    enum class CategoryItemClickHandler {
+        ITEM,
+        ADD_TO_FAVORITE
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = CategoryItemRcViewBinding.bind(itemView)
@@ -35,28 +42,27 @@ class CategoryItemAdapter  : RecyclerView.Adapter<CategoryItemAdapter.ViewHolder
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = differ.currentList[position]
         val context = holder.itemView.context
 
         holder.binding.apply {
+
+            fun loadImages(images: ArrayList<String>) {
+                val imageList = ArrayList<SlideModel>()
+                for (image in images) { imageList.add(SlideModel(image)) }
+                categoryItemImage.setImageList(imageList)
+            }
+
             item.apply {
 
                 categoryItemName.text = title
                 categoryItemPrice.text = "$price$"
-                Glide.with(context)
-                    .load(images[0])
-                    .error(R.drawable.ic_launcher_foreground)
-                    .centerCrop()
-                    .into(categoryItemImage)
+                loadImages(images)
 
-                holder.itemView.setOnClickListener {
-                    Snackbar.make(itemCategoryLayout, "Developing...", Snackbar.LENGTH_SHORT).show()
-                }
-
-                addToFavorite.setOnClickListener {
-                    Snackbar.make(itemCategoryLayout, "Developing...", Snackbar.LENGTH_SHORT).show()
-                }
+                holder.itemView.setOnClickListener { clickEvent(CategoryItemClickHandler.ITEM, item) }
+                addToFavorite.setOnClickListener { clickEvent(CategoryItemClickHandler.ADD_TO_FAVORITE, item) }
             }
         }
     }

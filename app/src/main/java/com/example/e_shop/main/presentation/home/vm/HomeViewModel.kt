@@ -23,4 +23,14 @@ class HomeViewModel @Inject constructor(private val repository: ProductRepositor
             getAllProductsResult.value = response
         }
     }
+
+    var getProductsWithPagination: MutableLiveData<Response<List<Product>>> = MutableLiveData()
+
+    fun getPaginationProducts() {
+
+        viewModelScope.launch {
+            val response = repository.getProductsWithPagination()
+            getProductsWithPagination.value = response
+        }
+    }
 }

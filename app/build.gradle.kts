@@ -92,4 +92,8 @@ dependencies {
 
     // Splash Screen
     implementation (libs.androidx.core.splashscreen)
+
+    // Image Slider
+    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
+
 }

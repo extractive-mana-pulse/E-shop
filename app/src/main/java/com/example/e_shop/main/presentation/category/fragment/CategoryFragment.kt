@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.e_shop.R
 import com.example.e_shop.databinding.FragmentCategoryBinding
 import com.example.e_shop.main.domain.model.Category
 import com.example.e_shop.main.presentation.category.adapter.CategoryAdapter
@@ -18,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
 
-    private val categoryAdapter by lazy { CategoryAdapter() }
+    private val categoryAdapter by lazy { CategoryAdapter(clickEvent = ::categoryClickEvents) }
     private val categoryViewModel : CategoryViewModel by viewModels()
     private val binding by lazy { FragmentCategoryBinding.inflate(layoutInflater) }
 
@@ -47,6 +48,19 @@ class CategoryFragment : Fragment() {
                 } else {
                     Snackbar.make(snackbarView, "Something went wrong, please try again,", Snackbar.LENGTH_SHORT).show()
                 }
+            }
+        }
+    }
+
+    private fun categoryClickEvents(clickHandler: CategoryAdapter.ClickHandler, category: Category) {
+        when(clickHandler) {
+            CategoryAdapter.ClickHandler.ITEM -> {
+                val bundle = Bundle().apply {
+                    putString("name", category.name)
+                    putString("image", category.image)
+                    putString("id", category.id.toString())
+                }
+                findNavController().navigate(R.id.categoryItemFragment, bundle)
             }
         }
     }

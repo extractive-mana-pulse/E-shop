@@ -9,4 +9,6 @@ class ProductRepositoryImpl(private val homeApi: HomeApi) : ProductRepository {
 
     override suspend fun getAllProducts(): Response<List<Product>> = homeApi.getAllProducts()
 
+    override suspend fun getProductsWithPagination(): Response<List<Product>> = homeApi.getProductsWithPagination()
+
 }
