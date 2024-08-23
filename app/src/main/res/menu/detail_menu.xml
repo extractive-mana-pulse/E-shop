@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/add_to_wishlist"
-        android:icon="@drawable/heart"
+        android:icon="@drawable/heart_detail"
         android:title="Wishlist"
         app:showAsAction="ifRoom"/>
 

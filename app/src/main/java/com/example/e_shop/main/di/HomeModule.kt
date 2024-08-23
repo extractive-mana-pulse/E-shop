@@ -1,10 +1,15 @@
 package com.example.e_shop.main.di
 
+import android.app.Application
+import androidx.room.Room
+import com.example.e_shop.main.data.local.database.ArticleDatabase
+import com.example.e_shop.main.data.local.repository.ProductRepositoryDB
 import com.example.e_shop.main.data.remote.api.CategoryApi
 import com.example.e_shop.main.data.remote.api.HomeApi
 import com.example.e_shop.main.data.remote.repository.CategoryRepository
 import com.example.e_shop.main.data.remote.repository.ProductRepository
 import com.example.e_shop.main.domain.repositoryImpl.CategoryRepositoryImpl
+import com.example.e_shop.main.domain.repositoryImpl.DbRepositoryImpl
 import com.example.e_shop.main.domain.repositoryImpl.ProductRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -47,5 +52,21 @@ object HomeModule {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder().baseUrl("https://api.escuelajs.co/api/v1/")
             .addConverterFactory(GsonConverterFactory.create()).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(app : Application) : ArticleDatabase {
+        return Room.databaseBuilder(
+            app,
+            ArticleDatabase::class.java,
+            "article.db"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDbRepository(db: ArticleDatabase): ProductRepositoryDB {
+        return DbRepositoryImpl(db)
     }
 }

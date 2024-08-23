@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,19 +15,20 @@ import com.example.e_shop.databinding.FragmentHomeBinding
 import com.example.e_shop.main.domain.model.ParentItem
 import com.example.e_shop.main.domain.model.Product
 import com.example.e_shop.main.presentation.category.vm.CategoryViewModel
+import com.example.e_shop.main.presentation.favorite.vm.DatabaseViewModel
 import com.example.e_shop.main.presentation.home.adapter.ChildAdapter
 import com.example.e_shop.main.presentation.home.adapter.ParentAdapter
 import com.example.e_shop.main.presentation.home.vm.HomeViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+
+// TODO Build MultiView recycler view. Nested recycler view sucks
+// TODO parent layout color is test colorSurface and this is only test to observe how does it looks like.
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    // TODO Build MultiView recycler view. Nested recycler view sucks
-    // TODO parent layout color is test colorSurface and this is only test to observe how does it looks like.
     private val homeViewModel by viewModels<HomeViewModel>()
+    private val dbViewModel by viewModels<DatabaseViewModel>()
     private val categoryViewModel: CategoryViewModel by viewModels()
     private val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
     private val parentAdapter by lazy { ParentAdapter(clickEvent = ::parentClickEvents) }
@@ -67,11 +69,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun parentClickEvents(clickEvents: ParentAdapter.ParentClickEvent, product: ParentItem) {
-        val bottomBar: BottomNavigationView = requireActivity().findViewById(R.id.bottom_nav_view)
+        val addToFavoriteBtn = requireActivity().findViewById<ImageButton>(R.id.add_to_favorite)
         when(clickEvents) {
             ParentAdapter.ParentClickEvent.ITEM -> {}
+
             ParentAdapter.ParentClickEvent.SEE_ALL -> { findNavController().navigate(R.id.action_homeFragment_to_categoryFragment) }
-            ParentAdapter.ParentClickEvent.ADD_TO_FAVORITE -> { Snackbar.make(bottomBar, "Developing...", Snackbar.LENGTH_SHORT).show() }
+
+            ParentAdapter.ParentClickEvent.ADD_TO_FAVORITE -> { /*TODO: we need to show all items in the database with correct icon.*/ }
         }
     }
 

@@ -53,6 +53,7 @@ class ParentAdapter(private val clickEvent: (ParentClickEvent, ParentItem) -> Un
             item.apply {
 
                 parentAdapterTitleTv.text = title
+
                 val childAdapter = ChildAdapter { event, product ->
                     when (event) {
                         ChildAdapter.ChildClickEvents.ITEM -> {

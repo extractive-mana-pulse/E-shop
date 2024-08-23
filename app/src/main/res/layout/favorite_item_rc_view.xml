@@ -9,6 +9,20 @@
     android:background="@drawable/category_item_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/favorite_item_image"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_gravity="center"
+        android:clipToOutline="true"
+        app:iss_corner_radius="16"
+        app:iss_indicator_align="RIGHT"
+        android:contentDescription="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="UnusedAttribute" />
+
     <ImageButton
         android:id="@+id/remove_from_favorite"
         android:layout_width="36dp"
@@ -18,17 +32,6 @@
         android:background="@drawable/back_btn_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-        android:id="@+id/favorite_item_image"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:contentDescription="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/ic_launcher_foreground"/>
 
     <TextView
         android:id="@+id/favorite_item_name"

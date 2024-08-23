@@ -1,19 +1,24 @@
 package com.example.e_shop.main.presentation.favorite.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.e_shop.R
-import com.example.e_shop.databinding.CategoryItemRcViewBinding
 import com.example.e_shop.databinding.FavoriteItemRcViewBinding
 import com.example.e_shop.main.domain.model.Product
 import com.google.android.material.snackbar.Snackbar
 
-class FavoriteAdapter  : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
+class FavoriteAdapter(private val clickEvent: (FavoriteAdapterClickHandler, Product) -> Unit)  : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
+
+    enum class FavoriteAdapterClickHandler {
+        ITEM,
+        REMOVE_FROM_WISHLIST
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = FavoriteItemRcViewBinding.bind(itemView)
@@ -30,35 +35,34 @@ class FavoriteAdapter  : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
         }
     }
 
-    val differ = AsyncListDiffer(this,differCallback)
+    internal val differ = AsyncListDiffer(this,differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.favorite_item_rc_view, parent, false)
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = differ.currentList[position]
         val context = holder.itemView.context
 
         holder.binding.apply {
+
+            fun loadImages(images: ArrayList<String>) {
+                val imageList = ArrayList<SlideModel>()
+                for (image in images) { imageList.add(SlideModel(image)) }
+                favoriteItemImage.setImageList(imageList)
+            }
+
             item.apply {
 
                 favoriteItemName.text = title
                 favoriteItemPrice.text = "$price$"
-                Glide.with(context)
-                    .load(images[0])
-                    .error(R.drawable.ic_launcher_foreground)
-                    .centerCrop()
-                    .into(favoriteItemImage)
+                loadImages(images)
 
-                holder.itemView.setOnClickListener {
-                    Snackbar.make(itemFavoriteLayout, "Developing...", Snackbar.LENGTH_SHORT).show()
-                }
-
-                removeFromFavorite.setOnClickListener {
-                    Snackbar.make(itemFavoriteLayout, "Developing...", Snackbar.LENGTH_SHORT).show()
-                }
+                holder.itemView.setOnClickListener { clickEvent(FavoriteAdapterClickHandler.ITEM, item) }
+                removeFromFavorite.setOnClickListener { clickEvent(FavoriteAdapterClickHandler.REMOVE_FROM_WISHLIST, item) }
             }
         }
     }

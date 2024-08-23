@@ -96,4 +96,9 @@ dependencies {
     // Image Slider
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
 
+    //  Room
+    kapt (libs.androidx.room.compiler)
+    implementation (libs.androidx.room.ktx)
+    implementation (libs.androidx.room.runtime)
+
 }

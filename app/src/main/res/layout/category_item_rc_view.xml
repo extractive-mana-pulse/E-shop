@@ -10,6 +10,22 @@
     android:background="@drawable/category_item_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/category_item_image"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:clipToOutline="true"
+        app:iss_corner_radius="16"
+        app:iss_indicator_align="RIGHT"
+        android:background="@drawable/rc_view_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_launcher_foreground"
+        tools:ignore="UnusedAttribute" />
+
     <ImageButton
         android:id="@+id/add_to_favorite"
         android:layout_width="36dp"
@@ -19,21 +35,6 @@
         android:background="@drawable/back_btn_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <com.denzcoskun.imageslider.ImageSlider
-        android:id="@+id/category_item_image"
-        android:layout_width="170dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:contentDescription="@null"
-        android:clipToOutline="true"
-        app:iss_corner_radius="16"
-        android:background="@drawable/rc_view_bg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/ic_launcher_foreground"
-        tools:ignore="UnusedAttribute" />
 
     <TextView
         android:id="@+id/category_item_name"

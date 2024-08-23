@@ -1,12 +1,16 @@
 package com.example.e_shop.main.domain.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity( tableName = "product" )
 data class Product (
 
+  @PrimaryKey(autoGenerate = true) var dbId : Int? = null,
   @SerializedName("id"          ) var id          : Int?              = null,
   @SerializedName("title"       ) var title       : String?           = null,
   @SerializedName("price"       ) var price       : Int?              = null,
