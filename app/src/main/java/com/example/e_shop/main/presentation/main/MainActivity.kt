@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.categoryItemFragment,
                 R.id.favoriteFragment,
                 R.id.editProfileFragment,
-                R.id.detailFragment
+                R.id.detailFragment,
+                R.id.addressFragment,
 
                 )
 

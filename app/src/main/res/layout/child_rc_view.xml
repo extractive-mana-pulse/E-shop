@@ -27,9 +27,9 @@
         android:layout_height="24dp"
         android:src="@drawable/heart"
         android:contentDescription="@null"
-        android:background="@drawable/back_btn_bg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/transparent" />
 
     <TextView
         android:id="@+id/category_item_name"

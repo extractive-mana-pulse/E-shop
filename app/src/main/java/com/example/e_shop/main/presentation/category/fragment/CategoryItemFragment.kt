@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,12 +15,15 @@ import com.example.e_shop.databinding.FragmentCategoryItemBinding
 import com.example.e_shop.main.domain.model.Product
 import com.example.e_shop.main.presentation.category.adapter.CategoryItemAdapter
 import com.example.e_shop.main.presentation.category.vm.CategoryViewModel
+import com.example.e_shop.main.presentation.favorite.vm.DatabaseViewModel
+import com.example.e_shop.main.presentation.favorite.vm.ItemExistenceState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoryItemFragment : Fragment() {
 
+    private val dbViewModel by viewModels<DatabaseViewModel>()
     private val categoryViewModel by viewModels<CategoryViewModel>()
     private val binding by lazy { FragmentCategoryItemBinding.inflate(layoutInflater) }
     private val categoryItemAdapter by lazy { CategoryItemAdapter(clickEvent = ::categoryItemClickEvents) }
@@ -28,12 +32,27 @@ class CategoryItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // TODO: icon add to favorite are not modifying. need to be fixed.
+        val addToFavoriteBtn = requireActivity().findViewById<ImageButton>(R.id.category_item_add_to_favorite_btn)
         binding.apply {
 
             categoryItemPageBackBtn.setOnClickListener { findNavController().navigateUp() }
 
             val categoryId = arguments?.getString("id")
             val categoryName = arguments?.getString("name")
+            val product = arguments?.getParcelable<Product>("product")
+
+            product?.id?.let { dbViewModel.checkIfItemExists(it) }
+            dbViewModel.itemExistenceState.observe(viewLifecycleOwner) { state ->
+                when (state) {
+                    ItemExistenceState.Exists -> {
+                        addToFavoriteBtn.setImageResource(R.drawable.heart_filled)
+                    }
+                    ItemExistenceState.NotExists -> {
+                        addToFavoriteBtn.setImageResource(R.drawable.heart_detail)
+                    }
+                }
+            }
 
             categoryNameTv.text = categoryName
 
@@ -67,9 +86,9 @@ class CategoryItemFragment : Fragment() {
             }
 
             CategoryItemAdapter.CategoryItemClickHandler.ADD_TO_FAVORITE -> {
-                Snackbar.make(binding.root, "Developing...", Snackbar.LENGTH_SHORT).show()
+                dbViewModel.saveProduct(product)
+                Snackbar.make(binding.root, "Added", Snackbar.ANIMATION_MODE_SLIDE).show()
             }
         }
-
     }
 }

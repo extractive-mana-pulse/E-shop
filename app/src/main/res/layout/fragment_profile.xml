@@ -1,40 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     android:background="@color/white"
     android:id="@+id/profile_root_layout"
     tools:context=".profile.presentation.profile.ProfileFragment">
 
-    <ImageView
-        android:id="@+id/user_avatar"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="24dp"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_launcher_foreground"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <include
-        android:id="@+id/profile_cred_layout"
-        layout="@layout/profile_credentials"/>
+        <ImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="80dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_launcher_foreground"/>
 
-    <include
-        android:id="@+id/profile_help_layout"
-        layout="@layout/profile_help"/>
+        <include
+            android:id="@+id/profile_cred_layout"
+            layout="@layout/profile_credentials"/>
 
-    <TextView
-        android:id="@+id/sign_out_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign out"
-        android:padding="8dp"
-        android:textStyle="bold"
-        android:textColor="#FF0000"
-        android:layout_marginTop="48dp"
-        android:layout_gravity="center"/>
+        <include
+            android:id="@+id/profile_address_layout"
+            layout="@layout/profile_address"/>
 
-</LinearLayout>
+        <include
+            android:id="@+id/profile_wishlist_layout"
+            layout="@layout/profile_wishlist"/>
+
+        <include
+            android:id="@+id/profile_payment_layout"
+            layout="@layout/profile_payment"/>
+
+        <include
+            android:id="@+id/profile_settings_layout"
+            layout="@layout/profile_settings"/>
+
+        <TextView
+            android:id="@+id/sign_out_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign out"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorError"
+            android:layout_marginTop="48dp"
+            android:layout_gravity="center"/>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

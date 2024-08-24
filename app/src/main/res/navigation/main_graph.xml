@@ -98,8 +98,8 @@
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_helpFragment"
-            app:destination="@id/helpFragment" />
+            android:id="@+id/action_profileFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
     </fragment>
     <fragment
         android:id="@+id/basketFragment"
@@ -129,15 +129,6 @@
             app:destination="@id/profileFragment" />
     </fragment>
     <fragment
-        android:id="@+id/helpFragment"
-        android:name="com.example.e_shop.profile.presentation.HelpFragment"
-        android:label="fragment_help"
-        tools:layout="@layout/fragment_help" >
-        <action
-            android:id="@+id/action_helpFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.e_shop.main.presentation.favorite.fragment.FavoriteFragment"
         android:label="fragment_favorite"
@@ -158,4 +149,9 @@
             android:id="@+id/action_detailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.e_shop.profile.presentation.address.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address" />
 </navigation>

@@ -1,14 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/colorSurface"
     tools:context=".profile.presentation.editProfile.EditProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/edit_profile_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="?attr/colorSurface"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Edit Profile"
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/arrowleft2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:titleTextAppearance="?attr/textAppearanceTitleMedium"/>
 
-</FrameLayout>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/fullname_et"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:maxLines="30"
+        android:padding="16dp"
+        android:hint="Fullname"
+        android:imeOptions="actionNext"
+        android:layout_marginTop="24dp"
+        android:inputType="textEmailAddress"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/email_et_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_profile_toolbar"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/email_et"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:maxLines="30"
+        android:padding="16dp"
+        android:hint="Email Address"
+        android:imeOptions="actionNext"
+        android:layout_marginTop="8dp"
+        android:inputType="textEmailAddress"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/email_et_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fullname_et"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/phone_number_et"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:maxLines="30"
+        android:padding="16dp"
+        android:hint="Phone Number (Optional)"
+        android:imeOptions="actionDone"
+        android:layout_marginTop="8dp"
+        android:inputType="textEmailAddress"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/email_et_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email_et"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_changes_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Save Changes"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

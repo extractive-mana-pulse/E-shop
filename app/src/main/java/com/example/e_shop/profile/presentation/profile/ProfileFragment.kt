@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.e_shop.R
 import com.example.e_shop.databinding.FragmentProfileBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,9 +23,10 @@ class ProfileFragment : Fragment() {
         binding.apply {
 
             signOutTv.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_loginFragment) }
-
-            profileHelpLayout.root.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_helpFragment) }
-
+            profileAddressLayout.root.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_addressFragment) }
+            profilePaymentLayout.root.setOnClickListener { Snackbar.make(root, "Developing...", Snackbar.ANIMATION_MODE_SLIDE).show() }
+            profileSettingsLayout.root.setOnClickListener { Snackbar.make(root, "Developing...", Snackbar.ANIMATION_MODE_SLIDE).show() }
+            profileWishlistLayout.root.setOnClickListener { Snackbar.make(root, "Developing...", Snackbar.ANIMATION_MODE_SLIDE).show() }
             profileCredLayout.profileEditBtn.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment) }
         }
     }

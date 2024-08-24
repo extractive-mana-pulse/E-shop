@@ -34,11 +34,10 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val productItem = arguments?.getParcelable<Product>("product")
-        Log.d("item id", productItem?.id.toString())
+        val product = arguments?.getParcelable<Product>("product")
 
         binding.apply {
-            productItem?.id?.let { dbViewModel.checkIfItemExists(it) }
+            product?.id?.let { dbViewModel.checkIfItemExists(it) }
             dbViewModel.itemExistenceState.observe(viewLifecycleOwner) { state ->
                 when (state) {
                     is ItemExistenceState.Exists -> {
@@ -56,14 +55,12 @@ class DetailFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.add_to_wishlist -> {
                         if (isItemInWishlist) {
-                            productItem?.let { dbViewModel.deleteArticle(it) }
-                            Log.d("item id", productItem?.id.toString())
+                            product?.let { dbViewModel.deleteArticle(it) }
                             Snackbar.make(root, "Removed", Snackbar.ANIMATION_MODE_SLIDE).show()
                             updateWishlistIcon(R.drawable.heart_detail)
                             isItemInWishlist = false
                         } else {
-                            productItem?.let { dbViewModel.saveProduct(it) }
-                            Log.d("item id", productItem?.id.toString())
+                            product?.let { dbViewModel.saveProduct(it) }
                             Snackbar.make(root, "Added", Snackbar.ANIMATION_MODE_SLIDE).show()
                             updateWishlistIcon(R.drawable.heart_filled)
                             isItemInWishlist = true
@@ -74,13 +71,12 @@ class DetailFragment : Fragment() {
                 }
             }
 
-            detailToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
             imageSlider.setSlideAnimation(AnimationTypes.BACKGROUND_TO_FOREGROUND)
-
+            detailToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
             addToBasketBtn.setOnClickListener { Toast.makeText(requireContext(), "Developing...", Toast.LENGTH_SHORT).show() }
 
-            productItem?.let { product ->
+            product?.let { product ->
                 loadImages(product.images)
                 productName.text = product.title
                 productPrice.text = "${product.price}$"

@@ -62,7 +62,7 @@ class CategoryItemAdapter(private val clickEvent: (CategoryItemClickHandler, Pro
                 loadImages(images)
 
                 holder.itemView.setOnClickListener { clickEvent(CategoryItemClickHandler.ITEM, item) }
-                addToFavorite.setOnClickListener { clickEvent(CategoryItemClickHandler.ADD_TO_FAVORITE, item) }
+                categoryItemAddToFavoriteBtn.setOnClickListener { clickEvent(CategoryItemClickHandler.ADD_TO_FAVORITE, item) }
             }
         }
     }
