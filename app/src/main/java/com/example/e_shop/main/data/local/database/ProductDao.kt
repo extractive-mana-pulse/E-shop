@@ -23,4 +23,7 @@ interface ProductDao {
     @Query("SELECT COUNT(*) FROM product WHERE id = :itemId")
     suspend fun isItemInDatabase(itemId: Int): Int
 
+    @Query("SELECT * FROM product WHERE id IN (:productIds)")
+    suspend fun getProductsByIds(productIds: List<Int>): List<Product>
+
 }

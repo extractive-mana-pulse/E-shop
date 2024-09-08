@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -13,8 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.e_shop.R
 import com.example.e_shop.databinding.ParentRcViewBinding
 import com.example.e_shop.main.domain.model.ParentItem
+import com.example.e_shop.main.presentation.favorite.vm.DatabaseViewModel
+import com.google.android.material.snackbar.Snackbar
 
-class ParentAdapter(private val clickEvent: (ParentClickEvent, ParentItem) -> Unit): RecyclerView.Adapter<ParentAdapter.ViewHolder>() {
+class ParentAdapter(
+    private val dbViewModel: DatabaseViewModel,
+    private val lifecycleOwner: LifecycleOwner,
+    private val clickEvent: (ParentClickEvent, ParentItem) -> Unit
+): RecyclerView.Adapter<ParentAdapter.ViewHolder>() {
 
     enum class ParentClickEvent{
         ITEM,
@@ -62,9 +69,13 @@ class ParentAdapter(private val clickEvent: (ParentClickEvent, ParentItem) -> Un
                             }
                             Navigation.findNavController(holder.itemView).navigate(R.id.detailFragment, bundle)
                         }
-                        ChildAdapter.ChildClickEvents.ADD_TO_FAVORITE -> { clickEvent(ParentClickEvent.ADD_TO_FAVORITE, item) }
+                        ChildAdapter.ChildClickEvents.ADD_TO_FAVORITE -> {
+//                            dbViewModel.saveProduct(product)
+                            Snackbar.make(holder.itemView, "Added", Snackbar.ANIMATION_MODE_SLIDE).show()
+                        }
                     }
                 }
+
                 childRcView.adapter = childAdapter
                 childAdapter.differ.submitList(childItems)
                 childRcView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)

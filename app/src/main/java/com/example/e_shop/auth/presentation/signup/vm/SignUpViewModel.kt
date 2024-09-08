@@ -1,45 +1,25 @@
 package com.example.e_shop.auth.presentation.signup.vm
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.e_shop.auth.data.remote.repository.AuthRepository
-import com.example.e_shop.auth.domain.model.SignUpUser
-import com.example.e_shop.auth.presentation.signup.sealed.SignUp
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.e_shop.auth.domain.model.SignInResult
+import com.example.e_shop.auth.domain.model.SignInState
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import javax.inject.Inject
+import kotlinx.coroutines.flow.update
 
-@HiltViewModel
-class SignUpViewModel @Inject constructor(private val repository : AuthRepository): ViewModel() {
+class SignUpViewModel: ViewModel() {
 
-    private val _signUp = MutableStateFlow<SignUp>(SignUp.Nothing)
-    val signUpResult: StateFlow<SignUp> = _signUp.asStateFlow()
+    private val _state = MutableStateFlow(SignInState())
+    val state = _state.asStateFlow()
 
-    fun signUp(name: String, email: String, password: String, avatar: String) {
+    fun onSignInResult(result: SignInResult) {
+        _state.update { it.copy(
+            isSignInSuccessful = result.data != null,
+            signInError = result.errorMessage
+        ) }
+    }
 
-        val request = SignUpUser(name, email, password, avatar)
-
-        viewModelScope.launch {
-            repository.signUp(request).enqueue(object : Callback<SignUpUser> {
-                override fun onResponse(call: Call<SignUpUser>, response: Response<SignUpUser>) {
-
-                    if (response.isSuccessful) {
-                        _signUp.value = SignUp.Success(response.body()!!)
-                    } else {
-                        _signUp.value = SignUp.Error(response.errorBody().toString())
-                    }
-                }
-
-                override fun onFailure(call: Call<SignUpUser>, t: Throwable) {
-                    _signUp.value = SignUp.Error(t.message.toString())
-                }
-            })
-        }
+    fun resetState() {
+        _state.update { SignInState() }
     }
 }

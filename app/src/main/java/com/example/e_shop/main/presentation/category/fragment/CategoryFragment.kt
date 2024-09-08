@@ -59,7 +59,6 @@ class CategoryFragment : Fragment() {
                     putString("name", category.name)
                     putString("image", category.image)
                     putString("id", category.id.toString())
-                    putParcelable("product", category.product)
                 }
                 findNavController().navigate(R.id.categoryItemFragment, bundle)
             }

@@ -1,13 +1,14 @@
 package com.example.e_shop.main.presentation.category.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_shop.R
@@ -16,9 +17,9 @@ import com.example.e_shop.main.domain.model.Product
 import com.example.e_shop.main.presentation.category.adapter.CategoryItemAdapter
 import com.example.e_shop.main.presentation.category.vm.CategoryViewModel
 import com.example.e_shop.main.presentation.favorite.vm.DatabaseViewModel
-import com.example.e_shop.main.presentation.favorite.vm.ItemExistenceState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CategoryItemFragment : Fragment() {
@@ -32,47 +33,49 @@ class CategoryItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO: icon add to favorite are not modifying. need to be fixed.
-        val addToFavoriteBtn = requireActivity().findViewById<ImageButton>(R.id.category_item_add_to_favorite_btn)
         binding.apply {
 
-            categoryItemPageBackBtn.setOnClickListener { findNavController().navigateUp() }
+            val title = arguments?.getString("name")
+            val id = arguments?.getString("id")
 
-            val categoryId = arguments?.getString("id")
-            val categoryName = arguments?.getString("name")
-            val product = arguments?.getParcelable<Product>("product")
+            categoryNameTv.text = title
 
-            product?.id?.let { dbViewModel.checkIfItemExists(it) }
-            dbViewModel.itemExistenceState.observe(viewLifecycleOwner) { state ->
-                when (state) {
-                    ItemExistenceState.Exists -> {
-                        addToFavoriteBtn.setImageResource(R.drawable.heart_filled)
-                    }
-                    ItemExistenceState.NotExists -> {
-                        addToFavoriteBtn.setImageResource(R.drawable.heart_detail)
-                    }
-                }
-            }
-
-            categoryNameTv.text = categoryName
-
-            categoryItemRcView.adapter = categoryItemAdapter
-            categoryItemRcView.layoutManager = GridLayoutManager(requireContext(), 2)
-
-            categoryViewModel.getAllProductsByCategory(categoryId!!.toInt())
-
+            categoryViewModel.getAllProductsByCategory(id!!.toInt())
             categoryViewModel.allProductsByCategory.observe(viewLifecycleOwner) { response ->
                 if (response.isSuccessful) {
                     response.body()?.let { categories ->
 
                         val categoryList: MutableList<Product> = categories.toMutableList()
                         categoryItemAdapter.differ.submitList(categoryList)
+
+                        val productIds = categoryList.mapNotNull { it.id }
+
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            dbViewModel.checkIfItemsExist(productIds).observe(viewLifecycleOwner) { existenceStates ->
+                                existenceStates.forEachIndexed { index, exists ->
+                                    val product = categoryList[index]
+                                    when (exists) {
+                                        true -> {
+                                            Log.d("item", "Product with ID ${product.id} is in the database")
+                                        }
+                                        false -> {
+                                            Log.d("item", "Product with ID ${product.id} is not in the database")
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
 
                 } else {
                     Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                 }
             }
+
+            categoryItemRcView.adapter = categoryItemAdapter
+            categoryItemRcView.layoutManager = GridLayoutManager(requireContext(), 2)
+
+            categoryItemPageBackBtn.setOnClickListener { findNavController().navigateUp() }
         }
     }
 

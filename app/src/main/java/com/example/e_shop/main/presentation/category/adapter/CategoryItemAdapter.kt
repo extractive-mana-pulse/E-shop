@@ -7,18 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.e_shop.R
 import com.example.e_shop.databinding.CategoryItemRcViewBinding
 import com.example.e_shop.main.domain.model.Product
-import com.google.android.material.snackbar.Snackbar
 
-class CategoryItemAdapter(private val clickEvent: (CategoryItemClickHandler, Product) -> Unit)  : RecyclerView.Adapter<CategoryItemAdapter.ViewHolder>() {
+class CategoryItemAdapter(private val clickEvent: (CategoryItemClickHandler, Product) -> Unit): RecyclerView.Adapter<CategoryItemAdapter.ViewHolder>() {
 
     enum class CategoryItemClickHandler {
         ITEM,
-        ADD_TO_FAVORITE
+        ADD_TO_FAVORITE,
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -47,6 +45,7 @@ class CategoryItemAdapter(private val clickEvent: (CategoryItemClickHandler, Pro
         val item = differ.currentList[position]
         val context = holder.itemView.context
 
+
         holder.binding.apply {
 
             fun loadImages(images: ArrayList<String>) {
@@ -62,7 +61,9 @@ class CategoryItemAdapter(private val clickEvent: (CategoryItemClickHandler, Pro
                 loadImages(images)
 
                 holder.itemView.setOnClickListener { clickEvent(CategoryItemClickHandler.ITEM, item) }
-                categoryItemAddToFavoriteBtn.setOnClickListener { clickEvent(CategoryItemClickHandler.ADD_TO_FAVORITE, item) }
+                categoryItemAddToFavoriteBtn.setOnClickListener {
+                    clickEvent(CategoryItemClickHandler.ADD_TO_FAVORITE, item)
+                }
             }
         }
     }

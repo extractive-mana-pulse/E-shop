@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,10 +28,10 @@ class HomeFragment : Fragment() {
 
     private val homeViewModel by viewModels<HomeViewModel>()
     private val dbViewModel by viewModels<DatabaseViewModel>()
-    private val categoryViewModel: CategoryViewModel by viewModels()
+    private val categoryViewModel by viewModels<CategoryViewModel>()
     private val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
-    private val parentAdapter by lazy { ParentAdapter(clickEvent = ::parentClickEvents) }
     private val childAdapter by lazy { ChildAdapter(clickEvents = ::childClickEvents) }
+    private val parentAdapter by lazy { ParentAdapter(clickEvent = ::parentClickEvents, dbViewModel = dbViewModel, lifecycleOwner = viewLifecycleOwner) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = binding.root
 
@@ -45,22 +44,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun recyclerView() {
+
         homeViewModel.getPaginationProducts()
         homeViewModel.getProductsWithPagination.observe(viewLifecycleOwner) { response ->
 
             if (response.isSuccessful) {
-
-                response.body()?.let { product ->
-                    val productList: MutableList<Product> = product.toMutableList()
-                    childAdapter.differ.submitList(productList)
-
-                    val parentItems = listOf(
-                        ParentItem(1, "Parent 1", "",productList),
-                        ParentItem(2, "Parent 2", "",productList)
-                    )
+                response.body()?.let { products ->
                     binding.parentRcView.adapter = parentAdapter
-                    parentAdapter.differ.submitList(parentItems)
                     binding.parentRcView.layoutManager = LinearLayoutManager(requireContext())
+                    childAdapter.differ.submitList(products.toList())
+                    val parentItems = createParentItems(products)
+                    parentAdapter.differ.submitList(parentItems)
                 }
             } else {
                 Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
@@ -68,14 +62,19 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun createParentItems(products: List<Product>): List<ParentItem> {
+        val categoryName = products.map { category -> category.category?.name }
+        return listOf(
+            ParentItem(1, categoryName.get(1).toString(), "", products),
+            ParentItem(2, categoryName.last().toString(), "", products)
+        )
+    }
+
     private fun parentClickEvents(clickEvents: ParentAdapter.ParentClickEvent, product: ParentItem) {
-        val addToFavoriteBtn = requireActivity().findViewById<ImageButton>(R.id.add_to_favorite)
         when(clickEvents) {
             ParentAdapter.ParentClickEvent.ITEM -> {}
-
+            ParentAdapter.ParentClickEvent.ADD_TO_FAVORITE -> {}
             ParentAdapter.ParentClickEvent.SEE_ALL -> { findNavController().navigate(R.id.action_homeFragment_to_categoryFragment) }
-
-            ParentAdapter.ParentClickEvent.ADD_TO_FAVORITE -> { /*TODO: we need to show all items in the database with correct icon.*/ }
         }
     }
 
@@ -86,3 +85,18 @@ class HomeFragment : Fragment() {
         }
     }
 }
+
+//            if (response.isSuccessful) {
+//
+//                response.body()?.let { product ->
+//                    val productList: MutableList<Product> = product.toMutableList()
+//                    childAdapter.differ.submitList(productList)
+//
+//                    val parentItems = listOf(
+//                        ParentItem(1, "title of the parent", "", productList),
+//                        ParentItem(2, product.first().category?.name, "", productList)
+//                    )
+//                    binding.parentRcView.adapter = parentAdapter
+//                    parentAdapter.differ.submitList(parentItems)
+//                    binding.parentRcView.layoutManager = LinearLayoutManager(requireContext())
+//                }

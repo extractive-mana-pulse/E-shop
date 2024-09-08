@@ -44,6 +44,17 @@ class ChildAdapter(private val clickEvents: (ChildClickEvents, Product) -> Unit)
         val context = holder.itemView.context
 
         holder.binding.apply {
+
+//            fun loadImages(images: ArrayList<String>) {
+//                val imageList = ArrayList<SlideModel>()
+//
+//                for (image in images) {
+//                    imageList.add(SlideModel(image))
+//                }
+//                categoryItemImage.setImageList(imageList)
+//            }
+
+
             item.apply {
                 holder.itemView.setOnClickListener { clickEvents(ChildClickEvents.ITEM, item) }
                 addToFavorite.setOnClickListener { clickEvents(ChildClickEvents.ADD_TO_FAVORITE, item) }
@@ -51,6 +62,7 @@ class ChildAdapter(private val clickEvents: (ChildClickEvents, Product) -> Unit)
                 categoryItemName.text = title
                 categoryItemPrice.text = "$price$"
                 Glide.with(context).load(images[0]).into(categoryItemImage)
+
             }
         }
     }

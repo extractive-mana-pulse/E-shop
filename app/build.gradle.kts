@@ -5,6 +5,8 @@ plugins {
     id ("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
     id ("dagger.hilt.android.plugin")
+    id ("com.google.gms.google-services")
+
 }
 
 android {
@@ -53,7 +55,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
     //  Dagger hilt
     kapt ("androidx.hilt:hilt-compiler:1.1.0")
     kapt ("com.google.dagger:hilt-android-compiler:2.50")
@@ -100,5 +101,12 @@ dependencies {
     kapt (libs.androidx.room.compiler)
     implementation (libs.androidx.room.ktx)
     implementation (libs.androidx.room.runtime)
+
+    // firebase
+    implementation ("com.google.firebase:firebase-auth-ktx:21.1.0")
+    implementation ("com.google.android.gms:play-services-auth:20.4.1")
+
+    // coil
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
 }

@@ -22,4 +22,8 @@ class DbRepositoryImpl(private val db : ArticleDatabase) : ProductRepositoryDB {
     override suspend fun isItemInDatabase(itemId: Int): Boolean {
         return db.getProductDao().isItemInDatabase(itemId) > 0
     }
+
+    override suspend fun getProductsByIds(productIds: List<Int>): List<Product> {
+        return db.getProductDao().getProductsByIds(productIds)
+    }
 }

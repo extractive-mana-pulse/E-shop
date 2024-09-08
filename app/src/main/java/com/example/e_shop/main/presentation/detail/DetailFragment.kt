@@ -2,7 +2,6 @@ package com.example.e_shop.main.presentation.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,12 +54,12 @@ class DetailFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.add_to_wishlist -> {
                         if (isItemInWishlist) {
-                            product?.let { dbViewModel.deleteArticle(it) }
+//                            product?.let { dbViewModel.deleteArticle(it) }
                             Snackbar.make(root, "Removed", Snackbar.ANIMATION_MODE_SLIDE).show()
                             updateWishlistIcon(R.drawable.heart_detail)
                             isItemInWishlist = false
                         } else {
-                            product?.let { dbViewModel.saveProduct(it) }
+//                            product?.let { dbViewModel.saveProduct(it) }
                             Snackbar.make(root, "Added", Snackbar.ANIMATION_MODE_SLIDE).show()
                             updateWishlistIcon(R.drawable.heart_filled)
                             isItemInWishlist = true
@@ -84,7 +83,7 @@ class DetailFragment : Fragment() {
             }
 
             var counter: Int = quantityTv.text.toString().toInt()
-            val pricePerItem = productPrice.text.toString().replace("$", "").toInt()
+            val pricePerItem = productPrice.text.toString().replace("$", "").toDouble()
 
             fun updateTotalPrice() {
                 val total = pricePerItem * counter

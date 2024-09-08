@@ -28,9 +28,17 @@ class DatabaseViewModel @Inject constructor(private val repository: ProductRepos
             _itemExistenceState.postValue(if (itemExists) ItemExistenceState.Exists else ItemExistenceState.NotExists)
         }
     }
+
+    suspend fun checkIfItemsExist(productIds: List<Int>): LiveData<List<Boolean>> {
+        val existenceStates = MutableLiveData<List<Boolean>>()
+        val dbProducts = repository.getProductsByIds(productIds)
+        val existenceList = dbProducts.map { true }
+        existenceStates.value = existenceList
+        return existenceStates
+    }
 }
 
 sealed class ItemExistenceState {
-    object Exists : ItemExistenceState()
-    object NotExists : ItemExistenceState()
+    data object Exists : ItemExistenceState()
+    data object NotExists : ItemExistenceState()
 }

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.e_shop.auth.presentation.login.ui.SignInFragment"
+        android:name="com.example.e_shop.auth.presentation.login.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -24,10 +24,13 @@
         android:id="@+id/createAccountFragment"
         android:name="com.example.e_shop.auth.presentation.signup.ui.SignUpFragment"
         android:label="fragment_create_account"
-        tools:layout="@layout/fragment_create_account" >
+        tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_createAccountFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_createAccountFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"

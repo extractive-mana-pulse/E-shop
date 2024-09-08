@@ -12,4 +12,6 @@ interface ProductRepositoryDB {
     suspend fun deleteProduct(product: Product)
 
     suspend fun isItemInDatabase(itemId: Int): Boolean
+
+    suspend fun getProductsByIds(productIds: List<Int>): List<Product>
 }

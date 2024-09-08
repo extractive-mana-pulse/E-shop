@@ -6,7 +6,7 @@
     android:background="?attr/colorSurface"
     android:id="@+id/login_root_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".auth.presentation.login.ui.SignInFragment">
+    tools:context=".auth.presentation.login.ui.LoginFragment">
 
     <TextView
         android:id="@+id/sign_in_text"
@@ -38,6 +38,23 @@
         app:layout_constraintTop_toBottomOf="@id/sign_in_text"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
 
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/password_et"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:maxLines="30"
+        android:padding="16dp"
+        android:hint="Password"
+        android:imeOptions="actionDone"
+        android:layout_marginTop="8dp"
+        android:inputType="textEmailAddress"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/email_et_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email_address"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/continue_btn"
         android:layout_width="match_parent"
@@ -47,7 +64,7 @@
         android:layout_marginHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_address"/>
+        app:layout_constraintTop_toBottomOf="@id/password_et"/>
 
     <LinearLayout
         android:id="@+id/create_account_layout"
