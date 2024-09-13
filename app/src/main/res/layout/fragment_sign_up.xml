@@ -50,40 +50,6 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/create_account_page_last_name_et"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:maxLines="30"
-        android:padding="16dp"
-        android:hint="Lastname"
-        android:layout_marginTop="8dp"
-        android:imeOptions="actionNext"
-        android:inputType="textPersonName"
-        android:layout_marginHorizontal="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/email_et_bg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_account_page_first_name_et"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/create_account_page_user_name_et"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:maxLines="30"
-        android:padding="16dp"
-        android:hint="Username"
-        android:layout_marginTop="8dp"
-        android:imeOptions="actionNext"
-        android:inputType="textPersonName"
-        android:layout_marginHorizontal="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/email_et_bg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_account_page_last_name_et"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
-
-    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/create_account_page_email_address_et"
         android:layout_width="0dp"
         android:layout_height="56dp"
@@ -97,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/email_et_bg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_account_page_user_name_et"
+        app:layout_constraintTop_toBottomOf="@id/create_account_page_first_name_et"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
 
     <com.google.android.material.textfield.TextInputEditText

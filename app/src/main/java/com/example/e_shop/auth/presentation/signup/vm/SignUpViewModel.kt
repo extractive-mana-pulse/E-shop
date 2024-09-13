@@ -22,4 +22,5 @@ class SignUpViewModel: ViewModel() {
     fun resetState() {
         _state.update { SignInState() }
     }
+
 }

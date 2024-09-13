@@ -54,12 +54,12 @@ class DetailFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.add_to_wishlist -> {
                         if (isItemInWishlist) {
-//                            product?.let { dbViewModel.deleteArticle(it) }
+                            product?.let { dbViewModel.deleteArticle(it) }
                             Snackbar.make(root, "Removed", Snackbar.ANIMATION_MODE_SLIDE).show()
                             updateWishlistIcon(R.drawable.heart_detail)
                             isItemInWishlist = false
                         } else {
-//                            product?.let { dbViewModel.saveProduct(it) }
+                            product?.let { dbViewModel.saveProduct(it) }
                             Snackbar.make(root, "Added", Snackbar.ANIMATION_MODE_SLIDE).show()
                             updateWishlistIcon(R.drawable.heart_filled)
                             isItemInWishlist = true

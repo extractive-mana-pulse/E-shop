@@ -27,7 +27,10 @@
         tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_createAccountFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_createAccountFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -101,8 +104,8 @@
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_addressFragment"
-            app:destination="@id/addressFragment" />
+            android:id="@+id/action_profileFragment_to_listOfAddressesFragment"
+            app:destination="@id/listOfAddressesFragment" />
     </fragment>
     <fragment
         android:id="@+id/basketFragment"
@@ -154,7 +157,32 @@
     </fragment>
     <fragment
         android:id="@+id/addressFragment"
-        android:name="com.example.e_shop.profile.presentation.address.AddressFragment"
+        android:name="com.example.e_shop.profile.presentation.address.ui.AddressFragment"
         android:label="fragment_address"
-        tools:layout="@layout/fragment_address" />
+        tools:layout="@layout/fragment_address" >
+        <action
+            android:id="@+id/action_addressFragment_to_listOfAddressesFragment"
+            app:destination="@id/listOfAddressesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listOfAddressesFragment"
+        android:name="com.example.e_shop.profile.presentation.address.ui.ListOfAddressesFragment"
+        android:label="fragment_list_of_addresses"
+        tools:layout="@layout/fragment_list_of_addresses" >
+        <action
+            android:id="@+id/action_listOfAddressesFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+        <action
+            android:id="@+id/action_listOfAddressesFragment_to_editAddressFragment"
+            app:destination="@id/editAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editAddressFragment"
+        android:name="com.example.e_shop.profile.presentation.address.ui.EditAddressFragment"
+        android:label="fragment_edit_address"
+        tools:layout="@layout/fragment_edit_address" >
+        <action
+            android:id="@+id/action_editAddressFragment_to_listOfAddressesFragment"
+            app:destination="@id/listOfAddressesFragment" />
+    </fragment>
 </navigation>

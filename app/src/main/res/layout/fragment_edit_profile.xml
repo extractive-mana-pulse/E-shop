@@ -7,18 +7,33 @@
     android:background="?attr/colorSurface"
     tools:context=".profile.presentation.editProfile.EditProfileFragment">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/edit_profile_toolbar"
         android:layout_width="match_parent"
-        android:background="?attr/colorSurface"
         android:layout_height="?attr/actionBarSize"
-        app:title="Edit Profile"
-        app:titleCentered="true"
-        app:navigationIcon="@drawable/arrowleft2"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:titleTextAppearance="?attr/textAppearanceTitleMedium"/>
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/back_btn_bg"
+            android:contentDescription="@null"
+            android:src="@drawable/arrowleft2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textAppearance="?attr/textAppearanceTitleMedium"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/fullname_et"
@@ -74,7 +89,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_changes_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_marginBottom="16dp"
         android:text="Save Changes"
         android:layout_marginHorizontal="16dp"

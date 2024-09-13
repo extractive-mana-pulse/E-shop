@@ -18,6 +18,7 @@ import com.example.e_shop.auth.presentation.signup.vm.SignUpViewModel
 import com.example.e_shop.databinding.FragmentLoginBinding
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
@@ -29,6 +30,7 @@ class LoginFragment : Fragment() {
             oneTapClient = Identity.getSignInClient(requireActivity())
         )
     }
+    private val auth by lazy { FirebaseAuth.getInstance() }
     private lateinit var launcher: ActivityResultLauncher<IntentSenderRequest>
     private val binding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
 
@@ -51,6 +53,16 @@ class LoginFragment : Fragment() {
                             Toast.makeText(requireContext(), "Sign in successful", Toast.LENGTH_LONG).show()
                             findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                         }
+                    }
+                }
+            }
+
+            continueBtn.setOnClickListener {
+                auth.signInWithEmailAndPassword(emailAddress.text.toString().trim(), passwordEt.text.toString().trim()).addOnCompleteListener(requireActivity()) {
+                    if (it.isSuccessful) {
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    } else {
+                        Snackbar.make(loginRootLayout, "Invalid Credentials", Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }

@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.e_shop.databinding.FragmentEditProfileBinding
 import com.google.android.material.snackbar.Snackbar
 
-
 class EditProfileFragment : Fragment() {
 
     private val binding by lazy { FragmentEditProfileBinding.inflate(layoutInflater) }
@@ -19,9 +18,9 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            editProfileToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-            saveChangesBtn.setOnClickListener { Snackbar.make(root,"Developing...",Snackbar.ANIMATION_MODE_SLIDE).show() }
+            backBtn.setOnClickListener { findNavController().navigateUp() }
 
+            saveChangesBtn.setOnClickListener { Snackbar.make(root,"Developing...",Snackbar.ANIMATION_MODE_SLIDE).show() }
         }
     }
 }

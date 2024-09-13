@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.editProfileFragment,
                 R.id.detailFragment,
                 R.id.addressFragment,
+                R.id.listOfAddressesFragment,
+                R.id.editAddressFragment
 
                 )
 

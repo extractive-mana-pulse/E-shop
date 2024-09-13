@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.e_shop.R
 import com.example.e_shop.auth.presentation.login.ui.GoogleAuthUiClient
-import com.example.e_shop.auth.presentation.signup.vm.SignUpViewModel
 import com.example.e_shop.databinding.FragmentProfileBinding
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.material.snackbar.Snackbar
@@ -20,7 +18,6 @@ import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
-    private val signUpViewModel : SignUpViewModel by viewModels()
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
             context = requireActivity(),
@@ -55,7 +52,8 @@ class ProfileFragment : Fragment() {
                     findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
                 }
             }
-            profileAddressLayout.root.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_addressFragment) }
+
+            profileAddressLayout.root.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_listOfAddressesFragment) }
             profilePaymentLayout.root.setOnClickListener { Snackbar.make(root, "Developing...", Snackbar.ANIMATION_MODE_SLIDE).show() }
             profileSettingsLayout.root.setOnClickListener { Snackbar.make(root, "Developing...", Snackbar.ANIMATION_MODE_SLIDE).show() }
             profileWishlistLayout.root.setOnClickListener { Snackbar.make(root, "Developing...", Snackbar.ANIMATION_MODE_SLIDE).show() }

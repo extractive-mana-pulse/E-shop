@@ -11,6 +11,8 @@ import com.example.e_shop.main.data.remote.repository.ProductRepository
 import com.example.e_shop.main.domain.repositoryImpl.CategoryRepositoryImpl
 import com.example.e_shop.main.domain.repositoryImpl.DbRepositoryImpl
 import com.example.e_shop.main.domain.repositoryImpl.ProductRepositoryImpl
+import com.example.e_shop.profile.data.repository.AddressRepository
+import com.example.e_shop.profile.domain.repositoryImpl.AddressRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -68,5 +70,11 @@ object HomeModule {
     @Singleton
     fun provideDbRepository(db: ArticleDatabase): ProductRepositoryDB {
         return DbRepositoryImpl(db)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAddressRepository(db: ArticleDatabase): AddressRepository {
+        return AddressRepositoryImpl(db)
     }
 }
